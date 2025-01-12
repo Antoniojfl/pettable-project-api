@@ -61,17 +61,19 @@ Examples of modules in this project:
 
 ## Environment Variables
 
-For this project, global environment variables are defined directly within the `serverless.yml` file for simplicity. These variables include database credentials and other configuration details, such as:
+For this project, global environment variables are defined directly within the `serverless.yml` of each module for simplicity. These variables include database credentials, such as:
 
 ```yaml
 provider:
   name: aws
   runtime: nodejs20.x
   environment:
-    DB_HOST: your-supabase-database-host
-    DB_USER: your-database-user
-    DB_PASSWORD: your-database-password
-    API_KEY: your-api-key
+    STAGE: ${self:provider.stage}
+    DB_NAME: postgres
+    DB_PORT: 5432
+    DB_HOST: aws-0-us-west-1.pooler.supabase.com
+    DB_USER: postgres.dkxyzkmrpwmtpqdwjswp
+    DB_PASSWORD: yqk@cje3rtp3HYK9jpv
 ```
 
 The database is hosted on **Supabase**, and the credentials are used to connect to the database securely.
@@ -89,7 +91,7 @@ Additionally, please note that the database hosted on Supabase will be **deleted
 ### Prerequisites
 
 - **Node.js**: Version 20.x or higher.
-- **Serverless Framework**: Ensure it's globally installed.
+- **AWS**: Ensure your AWS CLI credentials are set up. [More info here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 ### Installation
 
