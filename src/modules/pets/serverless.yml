@@ -1,0 +1,49 @@
+service: pettablePet
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-2
+  stage: ${opt:stage}
+  timeout: 10
+  environment:
+    STAGE: ${self:provider.stage}
+    DB_NAME: postgres
+    DB_PORT: 5432
+    DB_HOST: aws-0-us-west-1.pooler.supabase.com
+    DB_USER: postgres.dkxyzkmrpwmtpqdwjswp
+    DB_PASSWORD: yqk@cje3rtp3HYK9jpv
+
+functions:
+
+  getPets:
+    handler: ./functions/get-pets/handler.main
+    events:
+      - httpApi:
+          path: /api/pets
+          method: GET
+  
+  updatePets:
+    handler: ./functions/update-pets/handler.main
+    events:
+      - httpApi:
+          path: /api/pets/{id}
+          method: PATCH
+
+  deletePets:
+    handler: ./functions/delete-pets/handler.main
+    events:
+      - httpApi:
+          path: /api/pets/{id}
+          method: DELETE
+  
+  createPets:
+    handler: ./functions/create-pets/handler.main
+    events:
+      - httpApi:
+          path: /api/pets
+          method: POST
